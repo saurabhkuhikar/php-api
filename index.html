@@ -15,7 +15,7 @@
       <td id="header">
         <h1>PHP REST API CRUD</h1>
         <div id="search-bar">
-          <label style="color:white ;">Search :</label>
+          <label style="color:white;">Search :</label>
           <input type="text" id="search" autocomplete="off">
         </div>
       </td>
@@ -33,8 +33,7 @@
             <th width="10%" class = "center">Name</th>
             <th width="10%" class = "center">Age</th>
             <th width="20%" class = "center">City</th>
-            <th width="10%" class = "center">Edit</th>
-            <th width="10%" class = "center">Delete</th>
+            <th width="10%" class = "center">Action</th>
           </tr>
           <tbody id="load-table" class = "center"></tbody>
         </table>
@@ -96,13 +95,13 @@
           <div class="col-md-12">
             <div class="form-group">
               <label for="Name">Name</label>
-              <input type="text" name="sname" id="edit-name1" class="form-control">
+              <input type="text" name="sname" id="edit-name1" class="form-control" placeholder="User Name">
             </div>
           </div>     
           <div class="col-md-12">
             <div class="form-group">
-            <label for="age">Age</label>
-              <input type="text" name="sage" id="edit-age1" class="form-control" max="2">
+              <label for="age">Age</label>
+              <input type="number" name="sage" id="edit-age1" class="form-control" max="2" placeholder="Age">
             </div>
           </div> 
           <div class="col-md-12">
@@ -137,6 +136,7 @@ $(document).ready(function(){
   var host = window.location.host;
   var pathArray = window.location.pathname;
   var baseUrl = "http://" + host + pathArray;
+  var cityList = getCityListArr();
 
   function getCityListArr(){
     var items = [];
@@ -172,8 +172,6 @@ $(document).ready(function(){
   //Fetch All Records
   function loadTable(){
     
-    var cityList = getCityListArr();
-
     $("#load-table").html("");
     var sr = 1;
     $.ajax({ 
@@ -189,8 +187,7 @@ $(document).ready(function(){
                                     "<td>" + value.student_name +"</td>" + 
                                     "<td>" + value.age +"</td>" + 
                                     "<td>" + cityList[value.city] +"</td>" + 
-                                    "<td><button class='edit-btn' data-eid='"+ value.id + "' >Edit</button></td>" + 
-                                    "<td><button class='delete-btn' data-id='"+ value.id + "'>Delete</button></td>" + 
+                                    "<td><button class='edit-btn btn btn-info' data-eid='"+ value.id + "' >Edit</button>&nbsp;&nbsp;<button class='delete-btn btn btn-danger' data-id='"+ value.id + "'>Delete</button></td>" + 
                                     "</tr>");
             sr++;
           });
@@ -264,7 +261,7 @@ $(document).ready(function(){
 
   //Delete Record
   $(document).on("click",".delete-btn",function(){
-    if(confirm("Do you really want to delete this record ? ")){
+    if(confirm("Do you really want to delete this record?")){
       var studentId = $(this).data("id");
       var obj = {sid : studentId};
       var myJSON = JSON.stringify(obj);
@@ -344,8 +341,6 @@ $(document).ready(function(){
   $("#search").on("keyup",function(){
     var search_term = $(this).val();
     var sr = 1;
-  //  load city list
-    var cityList = getCityListArr();
     $("#load-table").html("");
 
     $.ajax({ 
@@ -356,7 +351,7 @@ $(document).ready(function(){
         $("#load-table").append("<tr><td colspan='6'><h2>"+ data.message +"</h2></td></tr>");
       }else{
         $.each(data, function(key, value){ 
-          $("#load-table").append("<tr>" + "<td>" + sr + "</td>" + "<td>" + value.student_name +"</td>" +  "<td>" + value.age +"</td>" +  "<td>" + cityList[value.city] +"</td>" +  "<td><button class='edit-btn' data-eid='"+ value.id + "'>Edit</button></td>" +  "<td><button class='delete-btn' data-id='"+ value.id + "'>Delete</button></td>" +"</tr>");
+          $("#load-table").append("<tr>" + "<td>" + sr + "</td>" + "<td>" + value.student_name +"</td>" + "<td>" + value.age +"</td>" + "<td>" + cityList[value.city] +"</td>" +  "<td><button class='edit-btn btn btn-info' data-eid='"+ value.id + "'>Edit</button> &nbsp; &nbsp;<button class='delete-btn btn btn-danger' data-id='"+ value.id + "'>Delete</button></td>" +"</tr>");
           sr++;
         });
         }

@@ -15,11 +15,11 @@ include "config.php";
 $sql = "INSERT INTO students(student_name, age, city) VALUES ('{$name}', {$age}, '{$city}')";
 
 if(mysqli_query($conn, $sql)){
-	echo json_encode(['message' => 'Student Record Inserted.', 'status' => true]);
+	echo json_encode(['message' => 'User Record Inserted.', 'status' => true]);
 
 }else{
 
- echo json_encode(['message' => 'Student Record Not Inserted.', 'status' => false]);
+ echo json_encode(['message' => 'User Record Not Inserted.', 'status' => false]);
 
 }
 ?>

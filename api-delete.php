@@ -14,11 +14,11 @@ $sql = "DELETE FROM students WHERE id = {$student_id}";
 
 if(mysqli_query($conn, $sql)){
 	
-	echo json_encode(['message' => 'Student Record Deleted.', 'status' => true]);
+	echo json_encode(['message' => 'User Record Deleted.', 'status' => true]);
 
 }else{
 
- echo json_encode(['message' => 'Student Record not Deleted.', 'status' => false]);
+ echo json_encode(['message' => 'User Record not Deleted.', 'status' => false]);
 
 } 
 

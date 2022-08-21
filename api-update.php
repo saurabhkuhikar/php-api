@@ -16,8 +16,8 @@ include "config.php";
 $sql = "UPDATE students SET student_name = '{$name}', age = {$age}, city = '{$city}' WHERE id = {$id}";
 
 if(mysqli_query($conn, $sql)){
-	echo json_encode(['message' => 'Student Record Updated.', 'status' => true]);
+	echo json_encode(['message' => 'User Record Updated.', 'status' => true]);
 }else{
-  echo json_encode(['message' => 'Student Record Not Updated.', 'status' => false]);
+  echo json_encode(['message' => 'User Record Not Updated.', 'status' => false]);
 }
 ?>
