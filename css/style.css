@@ -8,7 +8,7 @@ body{
   text-align: center;
 }
 #main{
-  width: 800px;
+  width: 100%;
   margin: 0 auto;
   background: white;
   font-size: 19px;
@@ -47,7 +47,7 @@ h1{
   background: #FFB3A7;
   padding: 20px 10px;
 }
-#table-form input[type="text"],#sage{
+#table-form input[type="text"]{
   height: 25px;
   font-size: 18px;
   padding: 3px 10px;
@@ -56,13 +56,10 @@ h1{
   border: 1px solid #5D3F6A;
   outline: 0;
 }
-#sage{
+/* #sage{
   width: 60px;
   padding: 3px 0 3px 10px;
-}
-#scity{
-  width: 120px;
-}
+} */
 
 #save-button,
 #edit-submit{
@@ -128,7 +125,7 @@ h1{
   border-radius: 3px;
   cursor: pointer;
 }
-#modal{
+#modal,#modal-insert{
   background: rgba(0,0,0,0.7);
   position: fixed;
   left: 0;
@@ -154,17 +151,16 @@ h1{
 }
 #modal-form input[type = "text"],
 #modal-form input[type="number"]{
-  width: 90%;
+  width: 100%;
   height: 25px;
   font-size: 18px;
   padding: 3px 10px;
   margin-right: 17px;
   border-radius: 4px;
-  border: 1px solid #5D3F6A;
   outline: 0;
 }
 
-#close-btn{
+#close-btn,#close-btn1{
   background: red;
   color: white;
   width: 30px;

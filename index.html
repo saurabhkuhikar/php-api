@@ -22,29 +22,21 @@
     </tr>
     <tr>
       <td id="table-form">
-        <form id="addForm">
-          Name : <input type="text" name="sname" id="sname">
-          Age : <input type="number" name="sage" id="sage">
-          City : 
-          <select name="scity" id="scity">
-            <option value="">select city</option>
-          </select>
-          <input type="submit" id="save-button" value="Save">
-        </form>
+        <button class=" btn btn-primary addPerson">Add Users</button>
       </td>
     </tr>
     <tr>
       <td id="table-data">
         <table width="100%" cellpadding="10px" border="1px" class="table table-hover">
           <tr>
-            <th width="10%">Sr no</th>
-            <th width="10%">Name</th>
-            <th width="10%">Age</th>
-            <th width="20%">City</th>
-            <th width="10%">Edit</th>
-            <th width="10%">Delete</th>
+            <th width="3%"  class = "center">Sr no</th>
+            <th width="10%" class = "center">Name</th>
+            <th width="10%" class = "center">Age</th>
+            <th width="20%" class = "center">City</th>
+            <th width="10%" class = "center">Edit</th>
+            <th width="10%" class = "center">Delete</th>
           </tr>
-          <tbody id="load-table"></tbody>
+          <tbody id="load-table" class = "center"></tbody>
         </table>
       </td>
     </tr>
@@ -53,7 +45,7 @@
   <div id="error-message" class="messages"></div>
   <div id="success-message" class="messages"></div>
 
-  <!-- Popup Modal Box for Update the Records -->
+<!-- Popup Modal Box for Update the Records -->
   <div id="modal">
     <div id="modal-form">
       <h2>Edit Form</h2>
@@ -68,8 +60,8 @@
           </div>     
           <div class="col-md-12">
             <div class="form-group">
-            <label for="age">Age</label>
-              <input type="number" name="sage" id="edit-age" class="form-control" max="2">
+              <label for="age">Age</label>
+              <input type="text" name="sage" id="edit-age" class="form-control" max="2">
             </div>
           </div> 
           <div class="col-md-12">
@@ -82,25 +74,75 @@
           </div> 
         </div>  
         <div class="row">
-          <div class="form-group">
-            <input type="button" id="edit-submit" value="Update">
+          <div class="col-md-12">
+            <div class="form-group">
+              <input type="button" id="edit-submit" value="Update">
+            </div>
           </div>
         </div>
       </form>
       <div id="close-btn">X</div>
     </div>
   </div>
+<!-- edit modal end  -->
 
+<!-- start modal insert data  -->
+<div id="modal-insert">
+  <div id="modal-form">
+    <h2>Add User</h2>
+    <form action="" id="addForm">    
+      <div class="row">
+        <div class="col-md-12">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="Name">Name</label>
+              <input type="text" name="sname" id="edit-name1" class="form-control">
+            </div>
+          </div>     
+          <div class="col-md-12">
+            <div class="form-group">
+            <label for="age">Age</label>
+              <input type="text" name="sage" id="edit-age1" class="form-control" max="2">
+            </div>
+          </div> 
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="city">City</label>
+              <select name="scity" id="scity" class="form-control">
+                <option value="" selected hidden>Select city</option>
+              </select>
+            </div> 
+          </div> 
+        </div>  
+      </div>  
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <input type="button" id="save-button" class="btn btn-success" value="Save">
+          </div>
+        </div>
+      </div>
+    </form>
+    <div id="close-btn1">X</div>
+  </div>
+</div>
+
+<!-- end modal insert data  -->
 <script type="text/javascript" src="js/jquery.js"></script>
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> -->
 
 <script type="text/javascript">
- $(document).ready(function(){
+$(document).ready(function(){
+
+  var host = window.location.host;
+  var pathArray = window.location.pathname;
+  var baseUrl = "http://" + host + pathArray;
+
   function getCityListArr(){
     var items = [];
-    
+
     $.ajax({
-      url : 'http://localhost/php-rest-api/api-city-list.php',
+      url : baseUrl+"api-city-list.php",
       type : "POST",
       success : function(data){
         $.each(data,function(index,value){
@@ -116,7 +158,7 @@
   function getCityList(opt){
     var items = "";
     $.ajax({
-      url : 'http://localhost/php-rest-api/api-city-list.php',
+      url : baseUrl+"api-city-list.php",
       type : "POST",
       success : function(data){
         $.each(data,function(index,value){
@@ -135,7 +177,7 @@
     $("#load-table").html("");
     var sr = 1;
     $.ajax({ 
-      url : 'http://localhost/php-rest-api/api-fetch-all.php',
+      url : baseUrl+"api-fetch-all.php",
       type : "GET",
       success : function(data){
         if(data.status == false){
@@ -205,7 +247,7 @@
       message("All Fields are required.",false);
     }else{
       $.ajax({ 
-      url : 'http://localhost/php-rest-api/api-insert.php',
+      url : baseUrl+"api-insert.php",
       type : "POST",
       data : jsonObj,
       success : function(data){
@@ -230,7 +272,7 @@
       var row = this;
 
       $.ajax({
-      url : 'http://localhost/php-rest-api/api-delete.php',
+      url : baseUrl+"api-delete.php",
       type : "POST",
       data : myJSON,
       success : function(data){
@@ -251,7 +293,7 @@
     var obj = {sid : studentId};
     var myJSON = JSON.stringify(obj);
     $.ajax({
-      url : 'http://localhost/php-rest-api/api-fetch-single.php',
+      url : baseUrl+"api-fetch-single.php",
       type : "POST",
       data : myJSON,
       success : function(data){
@@ -270,6 +312,11 @@
     $("#modal").hide();
   });
 
+  //Hide Modal Box of add person
+  $("#close-btn1").on("click",function(){
+    $("#modal-insert").hide();
+  });
+
   //Update Record
   $("#edit-submit").on("click",function(e){
 
@@ -278,7 +325,7 @@
       message("All Fields are required.",false);
     }else{
       $.ajax({ 
-      url : 'http://localhost/php-rest-api/api-update.php',
+      url : baseUrl+"api-update.php",
       type : "POST",
       data : jsonObj,
       success : function(data){
@@ -302,29 +349,27 @@
     $("#load-table").html("");
 
     $.ajax({ 
-      url : 'http://localhost/php-rest-api/api-search.php?search=' + search_term,
+      url : baseUrl+"api-search.php?search=" + search_term,
       type : "GET",
       success : function(data){
-       if(data.status == false){
-          $("#load-table").append("<tr><td colspan='6'><h2>"+ data.message +"</h2></td></tr>");
-        }else{
-          $.each(data, function(key, value){ 
-            $("#load-table").append("<tr>" + 
-                                    "<td>" + sr + "</td>" + 
-                                    "<td>" + value.student_name +"</td>" + 
-                                    "<td>" + value.age +"</td>" + 
-                                    "<td>" + cityList[value.city] +"</td>" + 
-                                    "<td><button class='edit-btn' data-eid='"+ value.id + "'>Edit</button></td>" + 
-                                    "<td><button class='delete-btn' data-id='"+ value.id + "'>Delete</button></td>" + 
-                                    "</tr>");
-            sr++;
-          });
+      if(data.status == false){
+        $("#load-table").append("<tr><td colspan='6'><h2>"+ data.message +"</h2></td></tr>");
+      }else{
+        $.each(data, function(key, value){ 
+          $("#load-table").append("<tr>" + "<td>" + sr + "</td>" + "<td>" + value.student_name +"</td>" +  "<td>" + value.age +"</td>" +  "<td>" + cityList[value.city] +"</td>" +  "<td><button class='edit-btn' data-eid='"+ value.id + "'>Edit</button></td>" +  "<td><button class='delete-btn' data-id='"+ value.id + "'>Delete</button></td>" +"</tr>");
+          sr++;
+        });
         }
       }
     });
   })
 
- });
+  /* this function is use for the create the user and save the details show the modalbox */
+  $(document).on("click",".addPerson",function () {
+    $("#modal-insert").show();
+  })
+
+});
   
 </script>
 </body>
